@@ -28,6 +28,7 @@ class GameWindow:
 class RenderSurface:
     def __init__(self, window_width, window_height):
         self.renderer = pygame.Surface((window_width // 3.5, window_height // 3.5))
-    
+
+
     def get_renderer(self):
         return self.renderer

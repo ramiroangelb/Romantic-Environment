@@ -1,11 +1,12 @@
 import pygame
+import time
 from sys import exit
 from src.components.data.screen_data import GameWindow, RenderSurface
 from src.components.data.img_data import TilesSource, SpritesSource
 #from src.components.room import Room
 from src.components.write import Write
 from src.components.title_card import TitleCard
-
+from src.components.button import *
 
 ################
 #Hello Mini Jam!
@@ -35,6 +36,15 @@ message_string_list.append('''environment. Keep things''')
 message_string_list.append('''romantic and smooth!!!''')
 
 
+#Buttons
+btn_W = 400
+btn_H = 70
+play_button = Button(game_window.get_width()/2 - btn_W/2 , 260, btn_W, btn_H, "green", "#0A3409", "Start") 
+
+help_button = Button(game_window.get_width()/2 - btn_W/2, 360, btn_W, btn_H, "green", "#0A3409", "Help")
+
+exit_button = Button(game_window.get_width()/2 - btn_W/2, 460, btn_W, btn_H, "green", "#0A3409", "Exit")
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -54,6 +64,21 @@ while True:
             text_1.change_text(message_string_list[i])
             text_1.draw()
             aux +=40
+        
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()
+
+        if play_button.is_pressed(mouse_pos, mouse_pressed):
+            print('play button')
+        elif help_button.is_pressed(mouse_pos, mouse_pressed):
+            print('help button')
+        elif exit_button.is_pressed(mouse_pos, mouse_pressed):
+            pygame.quit()
+            exit()
+
+        game_window.get_screen().blit(play_button.image, play_button.rect)
+        game_window.get_screen().blit(help_button.image, help_button.rect)
+        game_window.get_screen().blit(exit_button.image, exit_button.rect)
 
 
     pygame.display.update()
