@@ -57,8 +57,9 @@ class Room:
                         obj = RoomObject((x, y), self.sprite_dict, 'table')
                         self.sprites_group.add(obj)
                     elif celd == 'C':
-                        tile = Tile((x, y), self.tile_list, 0)
-                        self.tiles_group.add(tile)
+                        pass
+                    elif celd == 'E':
+                        pass
                     elif celd == 'P':
                         obj = RoomObject((x, y - 16), self.sprite_dict, 'plant')
                         self.sprites_group.add(obj)

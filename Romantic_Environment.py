@@ -25,6 +25,7 @@ in_help = False
 first_time_call = True
 #SCREENS
 title_card = TitleCard(render_surface.get_renderer(), sprites)
+current_screen = Room(render_surface.get_renderer(),tiles,sprites)
 #Message
 text_1 = Write('', (0,0))
 text_2 = Write('', (0,0))
@@ -61,30 +62,8 @@ while True:
 
     if completed_title_card:
         completed_title_card = title_card.draw()
-        if completed_title_card:
-            in_main_menu = True
-    elif in_main_menu:
-        render_surface.get_renderer().fill('black')
-        
-        render_surface.get_renderer().blit(sprites.get_sprites_dict()['title'][0], (30,20))
-
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_pressed = pygame.mouse.get_pressed()
-        action = ''
-
-        if not start:
-            action = play_button.draw()
-            if action == 'Play':
-                start = True
-            action = exit_button.draw()
-            if action == 'Exit':
-                pygame.quit()
-                exit()
-        elif start and first_time_call:
-            current_screen = Room(render_surface.get_renderer(),tiles,sprites)
-            first_time_call = False
-        elif start and not first_time_call:
-            current_screen.draw()
+    else:
+        current_screen.draw()
 
 
 
