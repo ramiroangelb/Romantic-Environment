@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import tostring
 import pygame
 
 class TilesSource:
@@ -31,27 +32,6 @@ class SpritesSource:
     def __load_sprites(self, sprites_file_path):
         sprites = {
             'titlecard':[
-                pygame.image.load(sprites_file_path + 'screens/start/start1.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start2.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start3.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start4.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start5.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start6.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start7.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start8.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start9.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start10.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start11.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start12.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start13.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start14.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start15.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start16.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start17.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start18.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start19.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start20.png').convert_alpha(),
-                pygame.image.load(sprites_file_path + 'screens/start/start21.png').convert_alpha()
             ],
             'him': [
 
@@ -66,5 +46,9 @@ class SpritesSource:
                 
             ]
         }
+        self.fill_images_in_order(sprites,'titlecard',sprites_file_path,'screens/start/start', 20)
         return sprites
 
+    def fill_images_in_order(self,dic, key,file_path, path, images): 
+        for i in range(images):
+            dic[key].append(pygame.image.load(file_path + path + str(i+1) + '.png').convert_alpha())
