@@ -8,9 +8,9 @@ class Room:
         #Room layout:
         room_layout = [
             '------------',
-            '------------',
-            '------------',
-            '------------',
+            '----T-------',
+            '--------T---',
+            '--T---------',
             '------------'
         ]
         #Display
@@ -23,10 +23,21 @@ class Room:
         #Enemies
         self.enemies = []
         #Level
+        self.layout = room_layout
         self.__create_room()
 
     def __create_room(self):
-        pass
+        self.tiles_group = pygame.sprite.Group()
+        self.sprites_group = pygame.sprite.Group()
+        self.enemies_group = pygame.sprite.Group()
+        for row_index, row in enumerate(self.layout):
+            for celd_index, celd in enumerate(row):
+                if celd != '-':
+                    x = celd_index * self.tile_size
+                    y = row_index * self.tile_size
+                    if celd == 'T':
+                        
+
 
 
     def draw(self):
