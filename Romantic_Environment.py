@@ -1,5 +1,4 @@
 import pygame
-import time
 from sys import exit
 from src.components.data.screen_data import GameWindow, RenderSurface
 from src.components.data.img_data import TilesSource, SpritesSource
@@ -18,11 +17,14 @@ render_surface = RenderSurface(game_window.get_width(), game_window.get_height()
 clock = pygame.time.Clock()
 tiles = TilesSource()
 sprites = SpritesSource()
-current_screen = TitleCard(render_surface.get_renderer(), sprites)
 pygame.font.init()
 completed_title_card = False
+in_main_menu = False
 start = False
+in_help = False
 first_time_call = True
+#SCREENS
+title_card = TitleCard(render_surface.get_renderer(), sprites)
 #Message
 text_1 = Write('', (0,0))
 text_2 = Write('', (0,0))
@@ -41,9 +43,9 @@ message_string_list.append('''romantic and smooth!!!''')
 #Buttons
 btn_W = 400
 btn_H = 70
-play_button = Button(game_window.get_width()/2 - btn_W/2 , 260, btn_W, btn_H, "green", "#0A3409", "Start") 
-help_button = Button(game_window.get_width()/2 - btn_W/2, 360, btn_W, btn_H, "green", "#0A3409", "Help")
-exit_button = Button(game_window.get_width()/2 - btn_W/2, 460, btn_W, btn_H, "green", "#0A3409", "Exit")
+play_button = Button(render_surface, (88,70), sprites.get_sprites_dict(),1,'Play') 
+exit_button = Button(render_surface, (88,90), sprites.get_sprites_dict(),1,'Exit') 
+
 
 while True:
     for event in pygame.event.get():
@@ -55,30 +57,36 @@ while True:
     scaled_renderer = pygame.transform.scale(render_surface.get_renderer(), game_window.get_size())
     game_window.get_screen().blit(scaled_renderer, (0,0))
     
+    in_main_menu = True
+
     if completed_title_card:
-        completed_title_card = current_screen.draw()
-    else:
+        completed_title_card = title_card.draw()
+        if completed_title_card:
+            in_main_menu = True
+    elif in_main_menu:
+        render_surface.get_renderer().fill('black')
+        
+        render_surface.get_renderer().blit(sprites.get_sprites_dict()['title'][0], (30,20))
+
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
-
-        if play_button.is_pressed(mouse_pos, mouse_pressed):
-            start = True
-        elif help_button.is_pressed(mouse_pos, mouse_pressed):
-            print('help button')
-        elif exit_button.is_pressed(mouse_pos, mouse_pressed):
-            pygame.quit()
-            exit()
+        action = ''
 
         if not start:
-            game_window.get_screen().blit(play_button.image, play_button.rect)
-            game_window.get_screen().blit(help_button.image, help_button.rect)
-            game_window.get_screen().blit(exit_button.image, exit_button.rect)
-
-        if start and first_time_call:
+            action = play_button.draw()
+            if action == 'Play':
+                start = True
+            action = exit_button.draw()
+            if action == 'Exit':
+                pygame.quit()
+                exit()
+        elif start and first_time_call:
             current_screen = Room(render_surface.get_renderer(),tiles,sprites)
             first_time_call = False
         elif start and not first_time_call:
             current_screen.draw()
+
+
 
 
     pygame.display.update()

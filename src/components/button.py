@@ -1,26 +1,30 @@
-import pygame 
+import pygame
 
+class Button():
+    def __init__(self, surface, pos, sprite_dict, type, content, fontsize=8):
+        self.clicked = False
+        self.surface = surface
+        self.image = sprite_dict['buttons'][type]
+        self.rect = self.image.get_rect(center = (pos[0] * 3.5, pos[1] * 3.5))
 
-class Button(pygame.sprite.Sprite):
-    def __init__(self,x,y , width, height, fg, bg, content, fontsize=25):
-        self.font = pygame.font.Font('src/assets/fonts/PressStart2P-Regular.ttf', fontsize)
         self.content = content
+        self.font = pygame.font.Font('src/assets/fonts/PressStart2P-Regular.ttf', fontsize)
+        self.text = self.font.render(self.content, True, 'dark green')
 
-        self.x, self.y = x, y
-        self.width, self.height = width, height
+    def reset_clicked(self):
+        self.clicked = False
 
-        self.fg, self.bg = fg, bg
-        self.image = pygame.Surface((self.width, self.height))
-        self.image.fill(self.bg)
-        self.rect = self.image.get_rect()
+    def draw(self):
+        pygame.display.get_surface().blit(self.image, self.rect)
+        pygame.display.get_surface().blit(self.text, (self.rect.x + 8, self.rect.y + 5))
 
-        self.rect.x, self.rect.y = self.x, self.y
-        self.text = self.font.render(self.content, True, self.fg )
-        self.text_rect = self.text.get_rect(center=(self.width/2,self.height/2))
-        self.image.blit(self.text, self.text_rect)
-    
-    def is_pressed(self, pos, pressed):
-        if self.rect.collidepoint(pos):
-            if pressed[0]:
-                return True
-        return False
+        pos = pygame.mouse.get_pos()
+        action = ''
+
+        if not self.clicked:
+            if self.rect.collidepoint(pos):
+                if pygame.mouse.get_pressed()[0]:
+                    self.clicked = True
+                    action = self.content
+                    print('click')
+        return action

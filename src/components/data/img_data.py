@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import tostring
 import pygame
 
 class TilesSource:
@@ -31,6 +30,10 @@ class SpritesSource:
     def __load_sprites(self, sprites_file_path):
         sprites = {
             'titlecard':[
+
+            ],
+            'title':[
+
             ],
             'him': [
 
@@ -57,9 +60,15 @@ class SpritesSource:
             ],
             'three_dog':[
                 pygame.image.load(sprites_file_path + 'sprites/room/three_dog.png').convert_alpha()
+            ],
+            'buttons':[
+                pygame.image.load(sprites_file_path + 'sprites/ui/button_two.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/ui/button_one.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/ui/button_three.png').convert_alpha()
             ]
         }
         self.fill_images_in_order(sprites,'titlecard',sprites_file_path,'screens/start/start', 21)
+        self.fill_images_in_order(sprites,'title',sprites_file_path,'sprites/ui/title', 8)
         return sprites
 
     def fill_images_in_order(self,dic, key,file_path, path, images): 
