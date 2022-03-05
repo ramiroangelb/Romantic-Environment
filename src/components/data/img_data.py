@@ -46,7 +46,7 @@ class SpritesSource:
                 
             ]
         }
-        self.fill_images_in_order(sprites,'titlecard',sprites_file_path,'screens/start/start', 20)
+        self.fill_images_in_order(sprites,'titlecard',sprites_file_path,'screens/start/start', 21)
         return sprites
 
     def fill_images_in_order(self,dic, key,file_path, path, images): 
