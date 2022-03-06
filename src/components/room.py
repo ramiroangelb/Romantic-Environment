@@ -1,4 +1,5 @@
 import pygame
+from src.components.cursor import Cursor
 from src.components.tile import Tile
 from src.components.room_object import RoomObject
 
@@ -30,7 +31,6 @@ class Room:
         self.enemies = []
         #Level
         self.layout = room_layout
-        self.__create_room()
         #Food
         self.food_cord1_left = (0,0)
         self.food_cord2_left = (0,0)
@@ -38,8 +38,13 @@ class Room:
         self.food_cord2_center = (0,0)
         self.food_cord1_right = (0,0)
         self.food_cord2_right = (0,0)
+        #Cursor
+        self.clickeable_list = []
+        self.table = None
+        self.__create_room()
 
     def __create_room(self):
+
         self.tiles_group = pygame.sprite.Group()
         self.sprites_group = pygame.sprite.Group()
         self.enemies_group = pygame.sprite.Group()
@@ -56,10 +61,16 @@ class Room:
                     if celd == 'T':
                         obj = RoomObject((x, y), self.sprite_dict, 'table')
                         self.sprites_group.add(obj)
+                        self.clickeable_list.append(obj)
+                        self.table = obj
                     elif celd == 'C':
-                        pass
+                        she = RoomObject((x,y), self.sprite_dict, 'she')
+                        self.sprites_group.add(she)
+                        self.clickeable_list.append(she)
                     elif celd == 'E':
-                        pass
+                        him = RoomObject((x,y), self.sprite_dict, 'him')
+                        self.sprites_group.add(him)
+                        self.clickeable_list.append(him)
                     elif celd == 'P':
                         obj = RoomObject((x, y - 16), self.sprite_dict, 'plant')
                         self.sprites_group.add(obj)
@@ -71,7 +82,9 @@ class Room:
                         self.tiles_group.add(tile)
                         obj = RoomObject((x, y), self.sprite_dict, 'three_dog')
                         self.sprites_group.add(obj)
-
+        
+        self.cursor = Cursor((50,50), self.sprite_dict, self.clickeable_list)
+        self.sprites_group.add(self.cursor)
 
 
 
@@ -83,3 +96,4 @@ class Room:
         self.tiles_group.draw(self.display_surface)
         self.sprites_group.update()
         self.sprites_group.draw(self.display_surface)
+        pygame.draw.rect(pygame.display.get_surface(), 'white', self.table, 2)

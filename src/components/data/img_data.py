@@ -36,10 +36,16 @@ class SpritesSource:
 
             ],
             'him': [
-
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/him/him1.png').convert_alpha(), False, True),
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/him/him2.png').convert_alpha(), False, True),
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/him/him3.png').convert_alpha(), False, True),
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/him/him4.png').convert_alpha(), False, True)
             ],
             'she': [
-
+                pygame.image.load(sprites_file_path + 'sprites/she/she1.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/she/she2.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/she/she3.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/she/she4.png').convert_alpha()
             ],
             'soup': [
 
@@ -65,6 +71,21 @@ class SpritesSource:
                 pygame.image.load(sprites_file_path + 'sprites/ui/button_two.png').convert_alpha(),
                 pygame.image.load(sprites_file_path + 'sprites/ui/button_one.png').convert_alpha(),
                 pygame.image.load(sprites_file_path + 'sprites/ui/button_three.png').convert_alpha()
+            ],
+            'cursor':[
+                pygame.image.load(sprites_file_path + 'sprites/ui/cursor1.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/ui/cursor2.png').convert_alpha()
+            ],
+            'she_portraits':[
+                pygame.image.load(sprites_file_path + 'sprites/portraits/she1.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/portraits/she2.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/portraits/she3.png').convert_alpha(),
+                pygame.image.load(sprites_file_path + 'sprites/portraits/she4.png').convert_alpha()
+            ],
+            'him_portraits':[
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/portraits/him1.png').convert_alpha(), True, False),
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/portraits/him2.png').convert_alpha(), True, False),
+                pygame.transform.flip(pygame.image.load(sprites_file_path + 'sprites/portraits/him3.png').convert_alpha(), True, False)
             ]
         }
         self.fill_images_in_order(sprites,'titlecard',sprites_file_path,'screens/start/start', 21)
